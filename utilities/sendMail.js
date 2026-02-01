@@ -40,11 +40,8 @@ const sendMail = async ({ fileName, fileContent, text, subject }) => {
                 }
             ],
         };
-        const oAuth2Client = new google.auth.OAuth2(
-            auth.clientId,
-            auth.clientSecret,
-            auth.redirectUri
-        );
+        const result = await transport.sendMail(mailOptions);
+
 
         return {
             status: 'success',
@@ -59,8 +56,13 @@ const sendMail = async ({ fileName, fileContent, text, subject }) => {
         }
     }
 }
+const oAuth2Client = new google.auth.OAuth2(
+    auth.clientId,
+    auth.clientSecret,
+    auth.redirectUri
+);
 oAuth2Client.setCredentials({ refresh_token: auth.refreshToken });
-const result = await transport.sendMail(mailOptions);
+
 
 
 module.exports = {
