@@ -45,8 +45,7 @@ const sendMail = async ({ fileName, fileContent, text, subject }) => {
             auth.clientSecret,
             auth.redirectUri
         );
-        oAuth2Client.setCredentials({ refresh_token: auth.refreshToken });
-        const result = await transport.sendMail(mailOptions);
+
         return {
             status: 'success',
             data: result
@@ -60,7 +59,8 @@ const sendMail = async ({ fileName, fileContent, text, subject }) => {
         }
     }
 }
-
+oAuth2Client.setCredentials({ refresh_token: auth.refreshToken });
+const result = await transport.sendMail(mailOptions);
 
 
 module.exports = {
