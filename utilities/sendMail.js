@@ -10,12 +10,7 @@ const auth = {
     clientSecret: process.env.CLIENT_SECRET,
     refreshToken: process.env.REFRESH_TOKEN,
 };
-const oAuth2Client = new google.auth.OAuth2(
-    auth.clientId,
-    auth.clientSecret,
-    auth.redirectUri
-);
-oAuth2Client.setCredentials({ refresh_token: auth.refreshToken });
+
 const sendMail = async ({ fileName, fileContent, text, subject }) => {
     try {
         const accessToken = await oAuth2Client.getAccessToken();
@@ -40,12 +35,17 @@ const sendMail = async ({ fileName, fileContent, text, subject }) => {
             text,
             attachments: [
                 {
-                    filename:fileName,
+                    filename: fileName,
                     content: fileContent
                 }
             ],
         };
-
+        const oAuth2Client = new google.auth.OAuth2(
+            auth.clientId,
+            auth.clientSecret,
+            auth.redirectUri
+        );
+        oAuth2Client.setCredentials({ refresh_token: auth.refreshToken });
         const result = await transport.sendMail(mailOptions);
         return {
             status: 'success',
