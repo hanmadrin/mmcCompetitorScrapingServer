@@ -24,7 +24,7 @@ const sendMail  = async ({ fileName, fileContent, text, subject })=>{
     const to = [
         'michael@matthewsmotorcompany.com',
         'jason@matthewsmotorcompany.com',
-        'josh@matthewsmotorcompany.com',
+        // 'josh@matthewsmotorcompany.com',
         'hashon.code@gmail.com',
         // 'mdhasanmahmudrimon@gmail.com'
     ]
